@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Spaghetti Bowl — 3D Object</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="module" src="model-viewer.min.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #1c1a18; font-family: -apple-system, Segoe UI, Roboto, sans-serif; }
+  model-viewer {
+    width: 100%;
+    height: 100vh;
+    background-color: #2a2622;
+    --poster-color: transparent;
+  }
+  .caption {
+    position: fixed;
+    left: 16px;
+    bottom: 12px;
+    color: #eee8;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+  <model-viewer
+    src="spaghetti_bowl.glb"
+    alt="A realistic bowl of colorful spaghetti"
+    camera-controls
+    auto-rotate
+    auto-rotate-delay="0"
+    rotation-per-second="18deg"
+    camera-orbit="20deg 58deg auto"
+    field-of-view="25deg"
+    min-camera-orbit="auto 15deg auto"
+    max-camera-orbit="auto 90deg auto"
+    exposure="0.85"
+    shadow-intensity="1"
+    shadow-softness="0.8"
+    environment-image="neutral"
+    tone-mapping="aces"
+    interaction-prompt="none"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+  ></model-viewer>
+  <div class="caption">Drag to orbit · scroll to zoom · spaghetti_bowl.glb</div>
+</body>
+</html>
