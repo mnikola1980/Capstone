@@ -1,0 +1,12 @@
+{
+  "name": "Studio Apartment",
+  "width": 28,
+  "height": 22,
+  "units": "ft",
+  "rooms": [
+    {"name": "Living Area", "type": "living_room", "weight": 3.2},
+    {"name": "Bedroom Nook", "type": "bedroom", "weight": 1.8},
+    {"name": "Kitchen", "type": "kitchen", "weight": 1.4},
+    {"name": "Bathroom", "type": "bathroom", "weight": 0.7, "needs_window": false}
+  ]
+}

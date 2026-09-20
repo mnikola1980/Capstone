@@ -1,0 +1,18 @@
+{
+  "name": "Three Bedroom House",
+  "width": 44,
+  "height": 36,
+  "units": "ft",
+  "rooms": [
+    {"name": "Living Room", "type": "living_room", "weight": 2.4},
+    {"name": "Kitchen", "type": "kitchen", "weight": 1.6},
+    {"name": "Dining Room", "type": "dining_room", "weight": 1.2},
+    {"name": "Master Bedroom", "type": "master_bedroom", "weight": 2.0},
+    {"name": "Master Bath", "type": "bathroom", "weight": 0.7, "needs_window": false},
+    {"name": "Bedroom 2", "type": "bedroom", "weight": 1.4},
+    {"name": "Bedroom 3", "type": "bedroom", "weight": 1.3},
+    {"name": "Family Bath", "type": "bathroom", "weight": 0.6, "needs_window": false},
+    {"name": "Entry", "type": "entry", "weight": 0.5},
+    {"name": "Laundry", "type": "laundry", "weight": 0.5, "needs_window": false}
+  ]
+}

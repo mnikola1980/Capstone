@@ -1,0 +1,14 @@
+{
+  "name": "Small Office Suite",
+  "width": 34,
+  "height": 26,
+  "units": "ft",
+  "rooms": [
+    {"name": "Open Office", "type": "office", "weight": 2.6},
+    {"name": "Manager Office", "type": "office", "weight": 1.1},
+    {"name": "Meeting Room", "type": "dining_room", "weight": 1.2},
+    {"name": "Break Room", "type": "kitchen", "weight": 1.0},
+    {"name": "Reception", "type": "entry", "weight": 0.9},
+    {"name": "Restroom", "type": "bathroom", "weight": 0.6, "needs_window": false}
+  ]
+}
