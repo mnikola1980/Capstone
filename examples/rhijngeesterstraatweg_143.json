@@ -1,0 +1,762 @@
+{
+  "name": "Rhijngeesterstraatweg 143",
+  "address": "Rhijngeesterstraatweg 143, 2341 BT Oegstgeest",
+  "year_built": 1931,
+  "architect": "M.C. van Straten, arch., Leiden — plan no. 590",
+  "style": "heritage",
+  "units": "m",
+  "width": 7.15,
+  "height": 9.9,
+  "north_angle_deg": 270,
+  "blind_sides": [
+    "E"
+  ],
+  "scale_note": "schaal 1:100 · maten in meters",
+  "provenance": {
+    "drawings": "Bouwtekeningen BD03308, Tek-001 t/m Tek-004",
+    "project": "Zes landhuizen a/d Rijksstraatweg te Oegstgeest",
+    "plan_no": "590",
+    "architect": "M.C. van Straten, Leiden, maart 1931",
+    "approval": "Goedgekeurd B&W Oegstgeest, 1 juli 1931",
+    "as_built_note": "0.90 m dieper dan bouwteekening (aanvraag 15-6-1931)",
+    "brochure": "Panne van Soest Makelaars — 198 m² wonen, 456 m² perceel",
+    "estate": "Terrein v/h landhuis 'Enna'"
+  },
+  "storeys": [
+    {
+      "name": "Begane grond",
+      "level": 0,
+      "ceiling_height": 3.05,
+      "rooms": [
+        {
+          "name": "Entree",
+          "type": "entree",
+          "x": 0,
+          "y": 0,
+          "width": 2.8,
+          "height": 1.6,
+          "windows": [
+            {
+              "side": "W",
+              "position": 0.8,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "width": 1.1,
+              "kind": "front_door"
+            },
+            {
+              "side": "N",
+              "position": 1.4,
+              "width": 1.0,
+              "connects_to": "hal"
+            }
+          ],
+          "note": "voordeur, oostzijde"
+        },
+        {
+          "name": "Hal",
+          "type": "hal",
+          "x": 0,
+          "y": 1.6,
+          "width": 2.8,
+          "height": 4.0,
+          "windows": [
+            {
+              "side": "W",
+              "position": 2.0,
+              "role": "stair"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "width": 1.0,
+              "connects_to": "entree"
+            },
+            {
+              "side": "E",
+              "position": 1.6,
+              "width": 1.0,
+              "connects_to": "salon"
+            },
+            {
+              "side": "N",
+              "position": 0.52,
+              "width": 0.7,
+              "connects_to": "toilet"
+            },
+            {
+              "side": "N",
+              "position": 1.57,
+              "width": 0.7,
+              "connects_to": "berging"
+            },
+            {
+              "side": "N",
+              "position": 2.45,
+              "width": 0.85,
+              "connects_to": "gang",
+              "kind": "opening"
+            }
+          ],
+          "note": "bordestrap, hoge raampartij",
+          "furniture": [
+            {
+              "name": "Trap",
+              "x": 0.0,
+              "y": 0.1,
+              "width": 1.0,
+              "height": 2.6,
+              "kind": "stair",
+              "color": "#a8926f"
+            }
+          ]
+        },
+        {
+          "name": "Toilet",
+          "type": "wc",
+          "x": 0,
+          "y": 5.6,
+          "width": 1.05,
+          "height": 1.1,
+          "windows": [
+            {
+              "side": "W",
+              "position": 0.55,
+              "role": "toilet"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 0.52,
+              "width": 0.7,
+              "connects_to": "hal"
+            }
+          ]
+        },
+        {
+          "name": "Berging",
+          "type": "berging",
+          "x": 1.05,
+          "y": 5.6,
+          "width": 1.05,
+          "height": 1.1,
+          "doors": [
+            {
+              "side": "S",
+              "position": 0.52,
+              "width": 0.7,
+              "connects_to": "hal"
+            }
+          ],
+          "note": "trapkast"
+        },
+        {
+          "name": "Gang",
+          "type": "gang",
+          "x": 2.1,
+          "y": 5.6,
+          "width": 0.7,
+          "height": 1.1,
+          "doors": [
+            {
+              "side": "S",
+              "position": 0.35,
+              "width": 0.7,
+              "connects_to": "hal",
+              "kind": "opening"
+            },
+            {
+              "side": "N",
+              "position": 0.35,
+              "width": 0.7,
+              "connects_to": "keuken",
+              "kind": "opening"
+            }
+          ]
+        },
+        {
+          "name": "Keuken",
+          "type": "keuken",
+          "x": 0,
+          "y": 6.7,
+          "width": 2.8,
+          "height": 3.2,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.6,
+              "role": "kitchen"
+            },
+            {
+              "side": "N",
+              "position": 1.4,
+              "role": "kitchen"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 2.45,
+              "width": 0.7,
+              "connects_to": "gang",
+              "kind": "opening"
+            },
+            {
+              "side": "E",
+              "position": 1.2,
+              "width": 0.9,
+              "connects_to": "huiskamer"
+            },
+            {
+              "side": "N",
+              "position": 1.4,
+              "width": 1.2,
+              "kind": "garden"
+            }
+          ],
+          "note": "aan de tuinzijde"
+        },
+        {
+          "name": "Salon",
+          "type": "salon",
+          "x": 2.8,
+          "y": 0,
+          "width": 4.35,
+          "height": 4.6,
+          "windows": [
+            {
+              "side": "S",
+              "position": 2.175,
+              "role": "living_front"
+            }
+          ],
+          "doors": [
+            {
+              "side": "W",
+              "position": 3.2,
+              "width": 1.0,
+              "connects_to": "hal"
+            },
+            {
+              "side": "N",
+              "position": 2.175,
+              "width": 2.4,
+              "connects_to": "huiskamer",
+              "kind": "sliding"
+            }
+          ],
+          "note": "open haard",
+          "features": [
+            "open haard",
+            "schuifdeuren"
+          ],
+          "furniture": [
+            {
+              "name": "Open haard",
+              "x": 3.9,
+              "y": 1.65,
+              "width": 0.45,
+              "height": 1.3,
+              "kind": "fireplace",
+              "color": "#6b5140"
+            }
+          ]
+        },
+        {
+          "name": "Huiskamer",
+          "type": "huiskamer",
+          "x": 2.8,
+          "y": 4.6,
+          "width": 4.35,
+          "height": 5.3,
+          "windows": [
+            {
+              "side": "N",
+              "position": 2.175,
+              "role": "living_rear"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 2.175,
+              "width": 2.4,
+              "connects_to": "salon",
+              "kind": "sliding"
+            },
+            {
+              "side": "W",
+              "position": 3.3,
+              "width": 0.9,
+              "connects_to": "keuken"
+            },
+            {
+              "side": "N",
+              "position": 2.175,
+              "width": 1.6,
+              "kind": "garden"
+            }
+          ],
+          "note": "eethoek aan de tuin",
+          "features": [
+            "schuifdeuren",
+            "tuindeuren"
+          ]
+        }
+      ],
+      "note": "entree, hal met bordestrap, salon en huiskamer en-suite, keuken aan de tuin"
+    },
+    {
+      "name": "Eerste etage",
+      "level": 1,
+      "ceiling_height": 2.95,
+      "rooms": [
+        {
+          "name": "Slaapkamer 4",
+          "type": "slaapkamer",
+          "x": 0,
+          "y": 0,
+          "width": 2.8,
+          "height": 3.0,
+          "windows": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "role": "bedroom"
+            },
+            {
+              "side": "W",
+              "position": 1.5,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "N",
+              "position": 1.4,
+              "width": 0.9,
+              "connects_to": "overloop"
+            }
+          ]
+        },
+        {
+          "name": "Overloop",
+          "type": "overloop",
+          "x": 0,
+          "y": 3.0,
+          "width": 2.8,
+          "height": 2.6,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.3,
+              "role": "stair"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "width": 0.9,
+              "connects_to": "slaapkamer_4"
+            },
+            {
+              "side": "E",
+              "position": 0.8,
+              "width": 0.9,
+              "connects_to": "slaapkamer_1"
+            },
+            {
+              "side": "E",
+              "position": 2.1,
+              "width": 0.9,
+              "connects_to": "slaapkamer_2"
+            },
+            {
+              "side": "N",
+              "position": 1.0,
+              "width": 0.8,
+              "connects_to": "badkamer"
+            },
+            {
+              "side": "N",
+              "position": 2.4,
+              "width": 0.8,
+              "connects_to": "gang_2",
+              "kind": "opening"
+            }
+          ],
+          "furniture": [
+            {
+              "name": "Trap",
+              "x": 0.0,
+              "y": 0.0,
+              "width": 1.0,
+              "height": 2.6,
+              "kind": "stair",
+              "color": "#a8926f"
+            }
+          ]
+        },
+        {
+          "name": "Badkamer",
+          "type": "badkamer",
+          "x": 0,
+          "y": 5.6,
+          "width": 2.0,
+          "height": 2.4,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.2,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.0,
+              "width": 0.8,
+              "connects_to": "overloop"
+            }
+          ],
+          "note": "douche, wastafel, closet"
+        },
+        {
+          "name": "Gang",
+          "type": "gang",
+          "x": 2.0,
+          "y": 5.6,
+          "width": 0.8,
+          "height": 2.4,
+          "doors": [
+            {
+              "side": "S",
+              "position": 0.4,
+              "width": 0.8,
+              "connects_to": "overloop",
+              "kind": "opening"
+            },
+            {
+              "side": "N",
+              "position": 0.4,
+              "width": 0.8,
+              "connects_to": "slaapkamer_3",
+              "kind": "opening"
+            }
+          ]
+        },
+        {
+          "name": "Slaapkamer 3",
+          "type": "slaapkamer",
+          "x": 0,
+          "y": 8.0,
+          "width": 2.8,
+          "height": 1.9,
+          "windows": [
+            {
+              "side": "N",
+              "position": 1.4,
+              "role": "bedroom"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 2.4,
+              "width": 0.8,
+              "connects_to": "gang_2"
+            }
+          ]
+        },
+        {
+          "name": "Slaapkamer 1",
+          "type": "slaapkamer",
+          "x": 2.8,
+          "y": 0,
+          "width": 4.35,
+          "height": 4.6,
+          "windows": [
+            {
+              "side": "S",
+              "position": 1.3,
+              "role": "bedroom"
+            },
+            {
+              "side": "S",
+              "position": 3.05,
+              "role": "bedroom"
+            }
+          ],
+          "doors": [
+            {
+              "side": "W",
+              "position": 3.8,
+              "width": 0.9,
+              "connects_to": "overloop"
+            }
+          ],
+          "note": "voorzijde, straatzijde"
+        },
+        {
+          "name": "Slaapkamer 2",
+          "type": "slaapkamer",
+          "x": 2.8,
+          "y": 4.6,
+          "width": 4.35,
+          "height": 5.3,
+          "windows": [
+            {
+              "side": "N",
+              "position": 1.3,
+              "role": "bedroom"
+            },
+            {
+              "side": "N",
+              "position": 3.05,
+              "role": "bedroom"
+            }
+          ],
+          "doors": [
+            {
+              "side": "W",
+              "position": 0.5,
+              "width": 0.9,
+              "connects_to": "overloop"
+            },
+            {
+              "side": "N",
+              "position": 2.175,
+              "width": 1.0,
+              "kind": "garden"
+            }
+          ],
+          "note": "balkon, uitzicht achtertuin",
+          "features": [
+            "balkon"
+          ]
+        }
+      ],
+      "note": "vier slaapkamers, badkamer, balkon aan de tuinzijde"
+    },
+    {
+      "name": "Tweede etage",
+      "level": 2,
+      "ceiling_height": 2.6,
+      "rooms": [
+        {
+          "name": "Slaapkamer 7",
+          "type": "slaapkamer",
+          "x": 0,
+          "y": 0,
+          "width": 2.8,
+          "height": 3.0,
+          "windows": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "role": "dormer"
+            }
+          ],
+          "doors": [
+            {
+              "side": "N",
+              "position": 1.4,
+              "width": 0.85,
+              "connects_to": "overloop_2"
+            }
+          ],
+          "note": "onder de kap"
+        },
+        {
+          "name": "Overloop",
+          "type": "overloop",
+          "x": 0,
+          "y": 3.0,
+          "width": 2.8,
+          "height": 2.6,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.3,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.4,
+              "width": 0.85,
+              "connects_to": "slaapkamer_7"
+            },
+            {
+              "side": "E",
+              "position": 0.8,
+              "width": 0.85,
+              "connects_to": "slaapkamer_5"
+            },
+            {
+              "side": "E",
+              "position": 2.1,
+              "width": 0.85,
+              "connects_to": "slaapkamer_6"
+            },
+            {
+              "side": "N",
+              "position": 1.0,
+              "width": 0.8,
+              "connects_to": "badkamer_2"
+            },
+            {
+              "side": "N",
+              "position": 2.4,
+              "width": 0.8,
+              "connects_to": "gang_3",
+              "kind": "opening"
+            }
+          ],
+          "furniture": [
+            {
+              "name": "Trap",
+              "x": 0.0,
+              "y": 0.0,
+              "width": 1.0,
+              "height": 2.6,
+              "kind": "stair",
+              "color": "#a8926f"
+            }
+          ]
+        },
+        {
+          "name": "Badkamer 2",
+          "type": "badkamer",
+          "x": 0,
+          "y": 5.6,
+          "width": 2.0,
+          "height": 2.0,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.0,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 1.0,
+              "width": 0.8,
+              "connects_to": "overloop_2"
+            }
+          ],
+          "note": "douche, closet, wastafel"
+        },
+        {
+          "name": "Gang",
+          "type": "gang",
+          "x": 2.0,
+          "y": 5.6,
+          "width": 0.8,
+          "height": 2.0,
+          "doors": [
+            {
+              "side": "S",
+              "position": 0.4,
+              "width": 0.8,
+              "connects_to": "overloop_2",
+              "kind": "opening"
+            },
+            {
+              "side": "N",
+              "position": 0.4,
+              "width": 0.8,
+              "connects_to": "bergruimte",
+              "kind": "opening"
+            }
+          ]
+        },
+        {
+          "name": "Bergruimte",
+          "type": "bergruimte",
+          "x": 0,
+          "y": 7.6,
+          "width": 2.8,
+          "height": 2.3,
+          "windows": [
+            {
+              "side": "W",
+              "position": 1.15,
+              "role": "small"
+            }
+          ],
+          "doors": [
+            {
+              "side": "S",
+              "position": 2.4,
+              "width": 0.8,
+              "connects_to": "gang_3"
+            }
+          ],
+          "note": "onder de kap"
+        },
+        {
+          "name": "Slaapkamer 5",
+          "type": "slaapkamer",
+          "x": 2.8,
+          "y": 0,
+          "width": 4.35,
+          "height": 4.6,
+          "windows": [
+            {
+              "side": "S",
+              "position": 2.175,
+              "role": "dormer"
+            }
+          ],
+          "doors": [
+            {
+              "side": "W",
+              "position": 3.8,
+              "width": 0.85,
+              "connects_to": "overloop_2"
+            }
+          ],
+          "note": "onder de kap"
+        },
+        {
+          "name": "Slaapkamer 6",
+          "type": "slaapkamer",
+          "x": 2.8,
+          "y": 4.6,
+          "width": 4.35,
+          "height": 5.3,
+          "windows": [
+            {
+              "side": "N",
+              "position": 2.175,
+              "role": "dormer"
+            }
+          ],
+          "doors": [
+            {
+              "side": "W",
+              "position": 0.5,
+              "width": 0.85,
+              "connects_to": "overloop_2"
+            }
+          ],
+          "note": "onder de kap"
+        }
+      ],
+      "note": "drie slaapkamers onder de kap, tweede badkamer, bergruimte"
+    }
+  ]
+}

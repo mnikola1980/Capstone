@@ -16,11 +16,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from .models import Building, Room
-from .renderer import ROOM_COLORS
+from .heritage import style_for
+from .models import Building, Room, RoomType, Storey
+from .renderer import _room_colors
 
-WALL_HEIGHT = 9.0  # feet
-FURNITURE_HEIGHT = 2.5  # feet, generic box height for furniture glyphs
+WALL_HEIGHT_M = 2.74      # storey height used for the extrusion
+FURNITURE_HEIGHT_M = 0.76  # generic box height for furniture glyphs
 
 
 def _box_faces(x, y, z, w, d, h):
@@ -52,24 +53,39 @@ def render_isometric(
     out_path: str,
     title: Optional[str] = None,
     dpi: int = 160,
-    wall_height: float = WALL_HEIGHT,
+    wall_height: Optional[float] = None,
     elev: float = 42,
     azim: float = -55,
     cutaway: bool = True,
+    storey: Optional[Storey] = None,
+    style: Optional[str] = None,
 ) -> str:
     """Render a pseudo-3D isometric massing view of the building and save it.
 
     If `cutaway` is True, exterior walls facing the camera are left off so
     the interior (rooms + furniture) is visible, like a doll-house view.
     """
-    fig = plt.figure(figsize=(9, 7.5))
-    ax = fig.add_subplot(111, projection="3d")
+    style_name = style or getattr(building, "style", "modern")
+    st = style_for(style_name)
+    colors = _room_colors(style_name)
+    scale = 3.280839895013123 if building.units == "ft" else 1.0
+    if wall_height is None:
+        wall_height = (storey.ceiling_height if storey is not None else WALL_HEIGHT_M) * scale
+    furniture_height = FURNITURE_HEIGHT_M * scale
+    rooms = storey.rooms if storey is not None else building.rooms
 
-    for room in building.rooms:
+    fig = plt.figure(figsize=(9, 7.5))
+    fig.patch.set_facecolor(st["paper"])
+    ax = fig.add_subplot(111, projection="3d")
+    ax.set_facecolor(st["paper"])
+
+    for room in rooms:
         r = room.rect
-        color = ROOM_COLORS.get(room.room_type, ROOM_COLORS[room.room_type.GENERIC])
+        color = colors.get(room.room_type, colors[RoomType.GENERIC])
         # Floor slab
-        _add_box(ax, r.x, r.y, -0.15, r.w, r.h, 0.15, facecolor="#d9cdb8", alpha=1.0, faces=["top"])
+        slab = 0.05 * scale
+        _add_box(ax, r.x, r.y, -slab, r.w, r.h, slab,
+                 facecolor=st["paper_edge"], alpha=1.0, faces=["top"], edgecolor=st["ink_light"])
         # Perimeter walls, thin shells, skip faces on the building's exterior
         # boundary on the "front" (south/west) so we can see inside.
         wall_faces = []
@@ -103,7 +119,7 @@ def render_isometric(
                 0,
                 fr.w,
                 fr.h,
-                FURNITURE_HEIGHT * 0.55 if item.kind in ("table", "console", "bench") else FURNITURE_HEIGHT,
+                furniture_height * 0.55 if item.kind in ("table", "console", "bench") else furniture_height,
                 facecolor=item.color,
                 alpha=0.95,
             )
@@ -114,9 +130,13 @@ def render_isometric(
     ax.set_box_aspect((building.width, building.height, max(building.width, building.height) * 0.45))
     ax.view_init(elev=elev, azim=azim)
     ax.set_axis_off()
-    ax.set_title(title or f"{building.name} — 3D massing view", fontsize=13, fontweight="bold")
+    heading = title or (
+        f"{building.name} \u2014 {storey.name} \u2014 3D massing view" if storey is not None
+        else f"{building.name} \u2014 3D massing view"
+    )
+    ax.set_title(heading, fontsize=13, fontweight="bold", color=st["text"], family=st["title_font"])
 
     fig.tight_layout()
-    fig.savefig(out_path, dpi=dpi, bbox_inches="tight")
+    fig.savefig(out_path, dpi=dpi, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
     return out_path

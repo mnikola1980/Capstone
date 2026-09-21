@@ -7,42 +7,47 @@ tried against the room's walls in priority order using a simple
 it is already used, and place the next item's long edge flush against the
 wall wherever it fits without overlapping previously placed furniture,
 doors (plus swing clearance) or windows. Items that cannot be placed
-anywhere are silently skipped (tracked on `Room.unplaced` for callers who
-care), which is normal for small rooms.
+anywhere are skipped and reported, which is normal for small rooms.
 
 This is intentionally simple (no true bin-packing/ILP) but is fast,
 deterministic, and produces plausible, non-overlapping layouts.
+
+All clearances are defined in metres and scaled to the building's unit.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from .furniture_catalog import FurnitureTemplate, catalog_for
-from .models import Building, Door, FurnitureItem, Rect, Room
+from .models import FT_PER_M, Building, FurnitureItem, Rect, Room
 
-INSET = 0.35          # gap kept between furniture and the wall face (feet)
-DOOR_CLEARANCE = 2.5   # keep this much clear space in front of a door swing
+INSET_M = 0.107           # gap kept between furniture and the wall face
+DOOR_CLEARANCE_M = 0.762   # clear space kept in front of a door swing
+
+
+def _scale(units: str) -> float:
+    return FT_PER_M if units == "ft" else 1.0
 
 
 def _wall_length(room: Room, side: str) -> float:
     return room.rect.w if side in ("N", "S") else room.rect.h
 
 
-def _blocked_intervals(room: Room, side: str) -> List[Tuple[float, float]]:
-    """Return [start,end] intervals (along the wall, local coords) blocked by
-    doors/windows on this wall, expanded by clearance for doors."""
+def _blocked_intervals(room: Room, side: str, door_clearance: float) -> List[Tuple[float, float]]:
+    """Intervals along the wall (local coords) blocked by doors/windows on
+    this wall, doors expanded by swing clearance."""
     blocked = []
     for d in room.doors:
         if d.side != side:
             continue
-        half = d.width / 2 + DOOR_CLEARANCE
+        half = d.width / 2 + door_clearance
         blocked.append((d.position - half, d.position + half))
     for w in room.windows:
         if w.side != side:
             continue
-        half = w.width / 2 + 0.2
+        # A window only blocks furniture that would rise above its sill.
+        half = w.width / 2 + 0.06 * (door_clearance / DOOR_CLEARANCE_M or 1.0)
         blocked.append((w.position - half, w.position + half))
     return blocked
 
@@ -57,45 +62,48 @@ def _fits(interval: Tuple[float, float], blocked: List[Tuple[float, float]], wal
     return True
 
 
-def _place_on_wall(room: Room, side: str, item_w: float, item_d: float) -> Rect | None:
-    """Try to place a rectangle of footprint (item_w along wall) x (item_d away
-    from wall) flush against `side`, scanning left-to-right for the first
-    gap where it fits without hitting doors/windows or existing furniture."""
-    wall_len = _wall_length(room, side)
-    if item_w > wall_len - 2 * INSET:
-        return None
-    blocked = _blocked_intervals(room, side)
+def _build_rect(room_rect: Rect, side: str, pos_along: float, item_w: float, item_d: float, inset: float) -> Rect:
+    r = room_rect
+    if side == "S":
+        return Rect(r.x + pos_along, r.y + inset, item_w, item_d)
+    if side == "N":
+        return Rect(r.x + pos_along, r.y2 - inset - item_d, item_w, item_d)
+    if side == "W":
+        return Rect(r.x + inset, r.y + pos_along, item_d, item_w)
+    if side == "E":
+        return Rect(r.x2 - inset - item_d, r.y + pos_along, item_d, item_w)
+    raise ValueError(f"unknown side {side}")
 
-    r = room.rect
-    step = 0.5
-    pos = INSET
-    while pos + item_w <= wall_len - INSET + 1e-6:
+
+def _place_on_wall(
+    room: Room, side: str, item_w: float, item_d: float, inset: float, door_clearance: float
+) -> Optional[Rect]:
+    """Try to place a footprint (item_w along the wall, item_d away from it)
+    flush against `side`, scanning for the first gap where it fits without
+    hitting doors, windows or existing furniture."""
+    wall_len = _wall_length(room, side)
+    if item_w > wall_len - 2 * inset:
+        return None
+    if item_d > (room.rect.h if side in ("N", "S") else room.rect.w) - inset:
+        return None
+    blocked = _blocked_intervals(room, side, door_clearance)
+
+    step = max(0.05, inset)
+    pos = inset
+    while pos + item_w <= wall_len - inset + 1e-6:
         if _fits((pos, pos + item_w), blocked, wall_len):
-            candidate = _build_rect(r, side, pos, item_w, item_d)
+            candidate = _build_rect(room.rect, side, pos, item_w, item_d, inset)
             if not any(candidate.overlaps(f.rect) for f in room.furniture):
                 return candidate
         pos += step
     return None
 
 
-def _build_rect(room_rect: Rect, side: str, pos_along: float, item_w: float, item_d: float) -> Rect:
-    r = room_rect
-    if side == "S":
-        return Rect(r.x + pos_along, r.y + INSET, item_w, item_d)
-    if side == "N":
-        return Rect(r.x + pos_along, r.y2 - INSET - item_d, item_w, item_d)
-    if side == "W":
-        return Rect(r.x + INSET, r.y + pos_along, item_d, item_w)
-    if side == "E":
-        return Rect(r.x2 - INSET - item_d, r.y + pos_along, item_d, item_w)
-    raise ValueError(f"unknown side {side}")
-
-
-def _try_place_item(room: Room, tmpl: FurnitureTemplate) -> bool:
+def _try_place_item(room: Room, tmpl: FurnitureTemplate, inset: float, door_clearance: float) -> bool:
     sides_by_length = sorted(["S", "N", "W", "E"], key=lambda s: -_wall_length(room, s))
     for side in sides_by_length:
         for w, d in ((tmpl.width, tmpl.depth), (tmpl.depth, tmpl.width)):
-            rect = _place_on_wall(room, side, w, d)
+            rect = _place_on_wall(room, side, w, d, inset, door_clearance)
             if rect is not None:
                 room.furniture.append(
                     FurnitureItem(name=tmpl.name, rect=rect, color=tmpl.color, kind=tmpl.kind)
@@ -104,23 +112,28 @@ def _try_place_item(room: Room, tmpl: FurnitureTemplate) -> bool:
     return False
 
 
-def furnish_room(room: Room) -> List[str]:
+def furnish_room(room: Room, units: str = "ft", style: str = "modern") -> List[str]:
     """Populate room.furniture in place. Returns names of items that didn't fit."""
+    scale = _scale(units)
+    inset = INSET_M * scale
+    door_clearance = DOOR_CLEARANCE_M * scale
     unplaced = []
-    for tmpl in catalog_for(room.room_type):
+    for tmpl in catalog_for(room.room_type, units=units, style=style):
         if room.area < tmpl.min_room_area:
             unplaced.append(tmpl.name)
             continue
-        if not _try_place_item(room, tmpl):
+        if not _try_place_item(room, tmpl, inset, door_clearance):
             unplaced.append(tmpl.name)
     return unplaced
 
 
-def furnish(building: Building) -> dict:
-    """Furnish every room in the building. Returns {room_id: [unplaced item names]}."""
+def furnish(building: Building, style: Optional[str] = None) -> dict:
+    """Furnish every room on every storey. Returns {room_id: [unplaced names]}."""
+    style = style if style is not None else getattr(building, "style", "modern")
+    units = building.units
     report = {}
-    for room in building.rooms:
-        unplaced = furnish_room(room)
+    for room in building.all_rooms():
+        unplaced = furnish_room(room, units=units, style=style)
         if unplaced:
             report[room.id] = unplaced
     return report

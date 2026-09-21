@@ -286,3 +286,33 @@ def generate_layout(name: str, width: float, height: float, specs: Sequence[Room
     _add_interior_doors(rooms)
     _add_exterior_features(building)
     return building
+
+
+def building_from_spec(spec) -> Building:
+    """Build a `Building` from a parsed `BuildingSpec`.
+
+    A *surveyed* spec (explicit room rectangles, e.g. the 1931 house) is
+    passed straight through with its own geometry, doors and windows
+    intact - nothing is invented. A *generated* spec is handed to
+    `generate_layout`, which partitions the footprint and adds circulation.
+    """
+    if getattr(spec, "explicit", False):
+        building = Building(
+            name=spec.name,
+            width=spec.width,
+            height=spec.height,
+            units=spec.units,
+            storeys=list(spec.storeys),
+        )
+    else:
+        building = generate_layout(spec.name, spec.width, spec.height, spec.rooms)
+        building.units = spec.units
+
+    building.north_angle_deg = spec.north_angle_deg
+    building.address = spec.address
+    building.year_built = spec.year_built
+    building.architect = spec.architect
+    building.style = spec.style
+    building.scale_note = spec.scale_note
+    building.blind_sides = list(spec.blind_sides)
+    return building
